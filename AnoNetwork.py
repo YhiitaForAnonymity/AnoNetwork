@@ -54,8 +54,8 @@ def loop():
     print(Fore.YELLOW + """
     """)
     cont = input("Do you want to keep up searching ? [yes/no]")
-    if cont == "Yes" or cont == "yes":
-        loop()
-    else:
-        exit()
+   if cont.lower() in {'yes', 'y'}:
+    loop()
+else:
+    exit()
 loop()
