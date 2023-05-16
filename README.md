@@ -1,4 +1,6 @@
-Thanks for using my project.
+Soon final release, we are really close ! 
+
+hanks for using my project.
 This is a local network or later it is since I started working on it.
 
 Important links; 
