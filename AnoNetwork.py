@@ -25,31 +25,24 @@ def loop():
     
     print(Fore.GREEN + """ ==============================================================""")
     print(Style.RESET_ALL)
-    def track():
-        data = input()
-        if os.path.exists(data):
-            Site = open(data, 'r')
-            os.system("cls")
     
+  def track():
+    try:
+        data = input()
+        with open(data, 'r') as Site:
+            os.system("cls")
             time.sleep(0.2)
-            print ("Reading file please wait...")
+            print("Reading file please wait...")
             time.sleep(0.3)
             os.system("cls")
-    
             data = Site.read()
-            print (data)
-        else:
-            os.system("cls")      
-            print("Error: File not found  (3)")
-            time.sleep(1)
-            os.system("cls")
-            print("Error: File not found  (2)")
-            time.sleep(1)
-            os.system("cls")
-            print("Error: File not found  (1)")
-            time.sleep(1)
-            os.system("cls")
-            loop()
+            print(data)
+    except (FileNotFoundError, ) as e:  #add possible errortypes after ,
+        os.system("cls")
+        print(f" Unexpected error occoured: {str(e)}")
+        time.sleep(1)
+        loop()
+
     track()
     print(Fore.YELLOW + """
     """)
