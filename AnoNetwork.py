@@ -5,7 +5,6 @@ import pathlib
 import pyfiglet
 import colorama
 import requests
-from colorama import *
 
 def isWebsitePublic(url: str):
     response = requests.get(url)
