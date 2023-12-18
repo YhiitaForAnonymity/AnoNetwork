@@ -4,7 +4,77 @@ import os.path
 import pathlib
 import pyfiglet
 import colorama
+import requests
 from colorama import *
+
+def isWebsitePublic(url: str):
+    response = requests.get(url)
+    return response.status_code == 200
+
+def isFileAccessible(path: str):
+    return os.path.exists(path)
+
+def clearConsole():
+    os.system("cls")
+
+def loadingAnimation(sleep, repitions, states):
+    for i in range(0, repitions):
+        for state in states:
+            print(state)
+            time.sleep(sleep)
+            clearConsole()
+
+
+
+def checkWebsite(url: str):
+
+    isValid = isWebsitePublic(url)
+    
+    if isValid:
+        Site = requests.get(url).content
+        loadingAnimation(sleep=0.2, repitions=1, states=[
+            "Fetching website please wait ",
+            "Fetching website please wait .",
+            "Fetching website please wait ..",
+            "Fetching website please wait ..."
+        ])
+    
+    if not isValid:
+        loadingAnimation(sleep=1, repitions=1, states=[
+            "Website not found (3)",
+            "Website not found (2)",
+            "Website not found (1)",
+        ])
+
+    return isValid
+
+
+
+
+def checkFile(path: str):
+
+    isValid = isFileAccessible()
+
+    if isValid:
+        file = open(data, 'r')
+        data = file.read()
+        loadingAnimation(sleep=0.2, repitions=1, states=[
+            "Reading file please wait ",
+            "Reading file please wait .",
+            "Reading file please wait ..",
+            "Reading file please wait ..."
+        ])
+        print (data)
+
+    if not isValid:
+        loadingAnimation(sleep=1, repitions=1, states=[
+            "File not found (3)",
+            "File not found (2)",
+            "File not found (1)",
+        ])
+
+    return isValid
+
 
 def loop():
     text = pyfiglet.figlet_format(text="AnoNetwork",
@@ -20,6 +90,7 @@ def loop():
     [+]Creator:XYZ Universe
     [+]Secure Internet Connection
     [+]All links ending with .xyz
+    [+]Every public website supported
     [+]Example help.xyz""")
      
     
@@ -27,29 +98,18 @@ def loop():
     print(Style.RESET_ALL)
     def track():
         data = input()
-        if os.path.exists(data):
-            Site = open(data, 'r')
-            os.system("cls")
-    
-            time.sleep(0.2)
-            print ("Reading file please wait...")
-            time.sleep(0.3)
-            os.system("cls")
-    
-            data = Site.read()
-            print (data)
-        else:
-            os.system("cls")      
-            print("Error: File not found  (3)")
-            time.sleep(1)
-            os.system("cls")
-            print("Error: File not found  (2)")
-            time.sleep(1)
-            os.system("cls")
-            print("Error: File not found  (1)")
-            time.sleep(1)
-            os.system("cls")
+
+        print("Check if file exists")
+        fileExists = checkFile(data)
+
+        print("Check if website exists")
+        websiteExists = checkWebsite(data)
+
+        if not fileExists and not websiteExists:
             loop()
+
+
+        
     track()
     print(Fore.YELLOW + """
     """)
